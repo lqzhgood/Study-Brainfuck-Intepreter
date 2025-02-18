@@ -39,12 +39,15 @@ impl From<u8> for Opcode {
 }
 
 pub struct Code {
+    // 指令集
     pub instruction: Vec<Opcode>,
+    // 存储 [ 和 ] 的位置关系
     pub jump_table: std::collections::HashMap<usize, usize>,
 }
 
 impl Code {
     pub fn from(data: Vec<u8>) -> Result<Self, Box<dyn std::error::Error>> {
+        // TODO 可以作为常量
         let dict: Vec<u8> = vec![
             Opcode::SHR as u8,
             Opcode::SHL as u8,
@@ -62,6 +65,7 @@ impl Code {
             .map(|x| Opcode::from(*x))
             .collect();
 
+        // 借助栈结构来匹配 [ 和 ] 符号，然后存入 jump_table 中
         let mut jump_stack: Vec<usize> = Vec::new();
         let mut jump_table: std::collections::HashMap<usize, usize> =
             std::collections::HashMap::new();
