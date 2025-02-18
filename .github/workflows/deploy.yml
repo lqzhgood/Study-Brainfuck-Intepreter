@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
+      - run: cd Javascript && npm ci
 
       - name: Build
         run: cd Javascript && npm run build
