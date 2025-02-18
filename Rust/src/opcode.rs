@@ -74,7 +74,9 @@ impl Code {
                 jump_stack.push(i);
             }
             if Opcode::RB == *e {
-                let j = jump_stack.pop().ok_or("pop from empty list")?;
+                let j = jump_stack
+                    .pop()
+                    .ok_or("括号指令未成对 [pop from empty list]")?;
                 jump_table.insert(j, i);
                 jump_table.insert(i, j);
             }

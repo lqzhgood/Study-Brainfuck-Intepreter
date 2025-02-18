@@ -8,7 +8,7 @@ const EnterCode = () => {
     const { sourceCode } = useStore();
     return (
         <>
-            <Title level={4}>请输入 Brainfuck 源码</Title>
+            <Title level={4}>源码</Title>
             <TextArea
                 style={{ minHeight: 300 }}
                 autoSize

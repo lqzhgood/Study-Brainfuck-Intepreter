@@ -75,7 +75,7 @@ export class Code {
 
             if (Opcode.RB === e) {
                 if (jump_stack.length === 0) {
-                    throw new Error('pop from empty list');
+                    throw new Error('括号指令未成对 [pop from empty list]');
                 }
                 let j = jump_stack.pop();
                 jump_table.set(j, i);
