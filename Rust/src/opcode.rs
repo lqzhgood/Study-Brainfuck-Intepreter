@@ -7,8 +7,6 @@
 // LB       [  若指针所指字节的值为零，则向后跳转，跳转到其对应的]的下一个指令处
 // RB       ]  若指针所指字节的值不为零，则向前跳转，跳转到其对应的[的下一个指令处
 
-use std::iter;
-
 #[derive(Debug, PartialEq)]
 
 pub enum Opcode {
