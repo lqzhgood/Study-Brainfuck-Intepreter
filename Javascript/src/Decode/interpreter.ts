@@ -50,8 +50,9 @@ export class Interpreter {
                     break;
                 }
                 case Opcode.GetChar: {
-                    // TODO
-                    // this.stack[sp] = ''
+                    const s = prompt('请输入一个字符') || '';
+                    const c = s.charCodeAt(0);
+                    this.stack[sp] = c >= 0 && c <= 255 ? c : 0;
                     break;
                 }
                 case Opcode.LB: {
