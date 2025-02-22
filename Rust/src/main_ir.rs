@@ -1,6 +1,7 @@
 mod opcode;
-
 use opcode::Opcode;
+
+use std::fmt;
 use std::io::Read;
 use std::io::Write;
 
@@ -14,22 +15,37 @@ pub enum IR {
     JIZ(u32), // jump if zero
     JNZ(u32), // jump if not zero
 }
+impl fmt::Display for IR {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            IR::SHR(n) => write!(f, "SHR {}", n),
+            IR::SHL(n) => write!(f, "SHL {}", n),
+            IR::ADD(v) => write!(f, "ADD {}", v),
+            IR::SUB(v) => write!(f, "SUB {}", v),
+            IR::PutChar => write!(f, "PutChar"),
+            IR::GetChar => write!(f, "GetChar"),
+            IR::JIZ(addr) => write!(f, "JIZ {}", addr),
+            IR::JNZ(addr) => write!(f, "JNZ {}", addr),
+        }
+    }
+}
 
 pub struct Code {
     pub instruction: Vec<IR>,
 }
 
 impl Code {
-    pub fn from(data: Vec<opcode::Opcode>) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn from(instr: Vec<opcode::Opcode>) -> Result<Self, Box<dyn std::error::Error>> {
         let mut instruction: Vec<IR> = Vec::new();
         let mut jump_stack: Vec<u32> = Vec::new();
 
-        for e in data {
+        for e in instr {
+            let last = instruction.last_mut();
             match e {
                 // 因为 instruction 也是顺序填入的
                 // 如果当前 instruction 最后一个是 SHR，那么也就是和当前相同
                 // 那么就可以“折叠”成一个 SHR 指令
-                opcode::Opcode::SHR => match instruction.last_mut() {
+                opcode::Opcode::SHR => match last {
                     Some(IR::SHR(x)) => {
                         *x += 1;
                     }
@@ -37,7 +53,7 @@ impl Code {
                         instruction.push(IR::SHR(1));
                     }
                 },
-                opcode::Opcode::SHL => match instruction.last_mut() {
+                opcode::Opcode::SHL => match last {
                     Some(IR::SHL(x)) => {
                         *x += 1;
                     }
@@ -45,7 +61,7 @@ impl Code {
                         instruction.push(IR::SHL(1));
                     }
                 },
-                opcode::Opcode::ADD => match instruction.last_mut() {
+                opcode::Opcode::ADD => match last {
                     Some(IR::ADD(x)) => {
                         let (b, _) = x.overflowing_add(1);
                         *x = b;
@@ -54,7 +70,7 @@ impl Code {
                         instruction.push(IR::ADD(1));
                     }
                 },
-                opcode::Opcode::SUB => match instruction.last_mut() {
+                opcode::Opcode::SUB => match last {
                     Some(IR::SUB(x)) => {
                         let (b, _) = x.overflowing_add(1);
                         *x = b;
@@ -97,12 +113,12 @@ impl Code {
     }
 }
 
-struct Interpreter {
+struct Ir {
     // 表示无限长的纸带
     stack: Vec<u8>,
 }
 
-impl Interpreter {
+impl Ir {
     fn new() -> Self {
         Self { stack: vec![0; 1] }
     }
@@ -181,8 +197,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = std::env::args().collect();
     let data = std::fs::read(&args[1])?;
 
-    let mut interpreter = Interpreter::new();
+    let mut interpreter = Ir::new();
     interpreter.run(data)?;
+
+    let b: u8 = 10;
+    let c: u16 = 685;
+    let a = b.overflowing_sub(c as u8);
+    println!("{:?}", a);
 
     Ok(())
 }
