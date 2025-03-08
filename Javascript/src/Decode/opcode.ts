@@ -7,7 +7,7 @@
 // LB       [  若指针所指字节的值为零，则向后跳转，跳转到其对应的]的下一个指令处
 // RB       ]  若指针所指字节的值不为零，则向前跳转，跳转到其对应的[的下一个指令处
 
-export const enum Opcode {
+export enum Opcode {
     SHR = 0x3e,
     SHL = 0x3c,
     ADD = 0x2b,
@@ -16,6 +16,11 @@ export const enum Opcode {
     GetChar = 0x2c,
     LB = 0x5b,
     RB = 0x5d,
+}
+
+export function codeToOperation(num: Opcode) {
+    // @ts-ignore
+    return Opcode[num];
 }
 
 export function OpcodeFrom(u: number) {
