@@ -18,7 +18,6 @@ const Decode = () => {
 
     console.time('ir');
     const ir = new Ir(code);
-    console.log('ir', ir);
     const res_ir = ir.run();
     console.timeEnd('ir');
 

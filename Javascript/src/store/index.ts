@@ -1,11 +1,8 @@
 import { proxy } from 'valtio';
 import { useProxy } from 'valtio/utils';
 
-const defaultSourceCode =
-    `++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.`.trim();
-
 const state = proxy({
-    sourceCode: defaultSourceCode,
+    sourceCode: '',
 });
 
 export function useStore() {
