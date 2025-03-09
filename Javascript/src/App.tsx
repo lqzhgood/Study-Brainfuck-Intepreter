@@ -1,5 +1,5 @@
 import { Divider, Alert, Typography } from 'antd';
-import Decode from './Decode';
+// import Decode from './Decode';
 import EnterCode from './EnterCode';
 import { useStore } from './store';
 import SelectBf from './SelectBf';
@@ -17,9 +17,9 @@ function App() {
             <SelectBf />
             <EnterCode />
             <Divider>👇</Divider>
-            {/* <ErrorBoundary key={sourceCode.length}>
-                <Decode />
-            </ErrorBoundary> */}
+            <ErrorBoundary key={sourceCode.length}>
+                {/* <Decode /> */}
+            </ErrorBoundary>
         </>
     );
 }
