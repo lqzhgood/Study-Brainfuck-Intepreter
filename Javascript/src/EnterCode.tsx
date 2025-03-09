@@ -11,7 +11,6 @@ const EnterCode = () => {
             <Title level={4}>源码</Title>
             <TextArea
                 style={{ minHeight: 300 }}
-                autoSize
                 placeholder='请输入源码'
                 value={sourceCode}
                 onChange={e => {

@@ -1,14 +1,13 @@
-import { Divider, Alert, Typography } from 'antd';
+import { Alert, Typography } from 'antd';
 // import Decode from './Decode';
 import EnterCode from './EnterCode';
-import { useStore } from './store';
 import SelectBf from './SelectBf';
+import Decode from './Decode';
 
 const { Title } = Typography;
 const { ErrorBoundary } = Alert;
 
 function App() {
-    const { sourceCode } = useStore();
     return (
         <>
             <Title level={1} style={{ textAlign: 'center' }}>
@@ -16,9 +15,8 @@ function App() {
             </Title>
             <SelectBf />
             <EnterCode />
-            <Divider>👇</Divider>
-            <ErrorBoundary key={sourceCode.length}>
-                {/* <Decode /> */}
+            <ErrorBoundary>
+                <Decode />
             </ErrorBoundary>
         </>
     );
