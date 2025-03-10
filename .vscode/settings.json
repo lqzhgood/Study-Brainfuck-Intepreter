@@ -1,3 +1,10 @@
 {
-    "cSpell.words": ["Brainfuck", "valtio"]
+    "cSpell.words": [
+        "Brainfuck",
+        "dynasm",
+        "dynasmrt",
+        "putchar",
+        "sysv",
+        "valtio"
+    ]
 }

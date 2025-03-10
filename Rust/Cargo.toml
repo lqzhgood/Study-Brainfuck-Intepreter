@@ -13,4 +13,11 @@ name = "ir"
 path = "src/main_ir.rs"
 
 
+[[bin]]
+name = "jit"
+path = "src/main_jit.rs"
+
+
 [dependencies]
+dynasm = "3.0.1"
+dynasmrt = "3.0.1"
