@@ -57,7 +57,7 @@ impl Interpreter {
                      ; push rcx
                     ; mov  rdi, [rcx]
                     ; mov  rax, QWORD putchar as _
-                    ; sub  rsp, BYTE 0x28 // See https://coding.imooc.com/learn/questiondetail/259971.html
+                    ; sub  rsp, BYTE 0x28 // See https://www.cnblogs.com/iBinary/p/10959444.html
                     ; call rax
                     ; add  rsp, BYTE 0x28
                     ; pop  rcx
