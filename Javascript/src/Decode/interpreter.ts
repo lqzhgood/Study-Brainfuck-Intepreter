@@ -28,8 +28,7 @@ export class Interpreter {
 
         let done = false;
 
-        const task = () => {
-            console.log('1', 1, done);
+        const task = () => { 
             if (pc > this.code_len) {
                 done = true;
                 onFinish?.(this.res);
